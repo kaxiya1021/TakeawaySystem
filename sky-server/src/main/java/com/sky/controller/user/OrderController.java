@@ -57,6 +57,7 @@ public class OrderController {
 
     /**
      * 历史订单查询
+     *
      * @param page
      * @param pageSize
      * @param status
@@ -64,9 +65,9 @@ public class OrderController {
      */
     @GetMapping("/historyOrders")
     @ApiOperation("历史订单查询")
-    public Result<PageResult> page(int page, int pageSize, Integer status){
-        log.info("当前申请的状态是:{}",status);
-        PageResult pageResult = orderService.pageQuery4User(page,pageSize,status);
+    public Result<PageResult> page(int page, int pageSize, Integer status) {
+        log.info("当前申请的状态是:{}", status);
+        PageResult pageResult = orderService.pageQuery4User(page, pageSize, status);
         return Result.success(pageResult);
     }
 
@@ -105,6 +106,19 @@ public class OrderController {
     @ApiOperation("再来一单")
     public Result repetition(@PathVariable Long id) {
         orderService.repetition(id);
+        return Result.success();
+    }
+
+    /**
+     * 用户催单
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/reminder/{id}")
+    @ApiOperation("用户催单")
+    public Result reminder(@PathVariable("id") Long id) {
+        orderService.reminder(id);
         return Result.success();
     }
 }
